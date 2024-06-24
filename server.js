@@ -3,7 +3,7 @@ const {updatePassword,emailUser,getByToken,increaseEasyQuestionnaire,increaseMed
 
 const {getRandomQuestionnaires,getQuestionnaires,getQuestionnaire,createQuestionnaire, updateQuestionnaire, deleteQuestionnaire} =require('./controllers/questionnaireController')
 const{getSigns, createSign,updateSign, deleteSign}=require('./controllers/signController')
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 3000
 
 
 const server = http.createServer((req,res)=>{

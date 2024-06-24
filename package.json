@@ -2,11 +2,9 @@
     "name": "rot",
     "version": "1.0.0",
     "description": "NODE.js RESTAPI for RoT",
-    "main": "index.js",
+    "main": "server.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server.js",
-        "dev": "nodemon server.js"
+        "start": "node server.js"
     },
     "keywords": [
         "node",
@@ -20,6 +18,7 @@
     },
     "dependencies": {
         "bcrypt": "^5.1.1",
+        "bcryptjs": "^2.4.3",
         "cors": "^2.8.5",
         "firebase": "^10.12.1",
         "jsonwebtoken": "^9.0.2",

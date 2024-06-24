@@ -3,7 +3,7 @@ const {getPostData} =require('../utils')
 const jwt = require('jsonwebtoken');
 const secretKey = 'the-most-secret-key-ever'; 
 const nodemailer = require('nodemailer');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 // gets all users

@@ -1,6 +1,6 @@
 const {v4: uuidv4 } = require('uuid')
 const {writeDataToFile} = require('../utils') 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { collection,getDocs, doc, getDoc ,setDoc,deleteDoc, addDoc} = require("firebase/firestore");
 
 const db = require('../db')
