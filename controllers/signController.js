@@ -23,15 +23,15 @@ async function createSign(req,res){
     try{
         const body= await getPostData(req)
 
-        const {text,image_url,title,type}= JSON.parse(body)
+        const {text, image_url, title, type}= JSON.parse(body)
 
         const sign = {
-            text, image_url,title, type
+            text, image_url, title, type
         }
         const newSign= await Sign.create(sign)
 
         res.writeHead(201,{'Content-Type' : 'application/json'})
-        return res.end(JSON.stringify(newSign))
+        return res.end(JSON.stringify({message: 'Sign created', valid:'true'}))
     }
     catch (error){
         console.log(error)
@@ -39,8 +39,11 @@ async function createSign(req,res){
 }
 // delete sign by username
 //@route DELETE /api/sign/:username
-async function deleteSign(req,res,title){
+async function deleteSign(req,res){
     try{
+        const body= await getPostData(req)
+
+        const {title}= JSON.parse(body)
         const sign = await Sign.findByTitle(title)
         
         if(!sign){
@@ -50,7 +53,7 @@ async function deleteSign(req,res,title){
         else{
             await Sign.remove(sign.id)
             res.writeHead(200, {'Content-Type': 'application/json'}),
-            res.end(JSON.stringify({message: `Sign ${title} removed`}))
+            res.end(JSON.stringify({message: `Sign ${title} removed`, valid:'true'}))
         }
 
         

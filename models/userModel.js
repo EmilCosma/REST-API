@@ -1,4 +1,3 @@
-let users = require('../data/users')
 const {v4: uuidv4 } = require('uuid')
 const {writeDataToFile} = require('../utils') 
 const bcrypt = require('bcrypt');
@@ -93,26 +92,8 @@ function update(id, user) {
     });
 }
 
-function getUserByUsername(username) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const userSnapshot = await getDocs(collection(db, "Users"));
-            const users = userSnapshot.docs.map(doc => doc.data());
-            for (const user of users) {
-                if (user.username === username) {
-                    resolve(user);
-                }
-            }
-            resolve(null);
-        } catch (error) {
-            console.error(error);
-            reject(error);
-        }
-    });
-}
 
 function findByUsername(username) {
-  console.log('in find by username')
     return new Promise(async (resolve, reject) => {
         try {
             const userSnapshot = await getDocs(collection(db, "Users"));
@@ -132,6 +113,26 @@ function findByUsername(username) {
         }
     });
 }
+function findByEmail(email) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const userSnapshot = await getDocs(collection(db, "Users"));
+            const users = userSnapshot.docs.map(doc => ({
+              id: doc.id,
+              ...doc.data()
+          }));
+            for (const user of users) {
+                if (user.email === email) {
+                    resolve(user);
+                }
+            }
+            resolve(null);
+        } catch (error) {
+            console.error(error);
+            reject(error);
+        }
+    });
+}
 
 module.exports = {
     findAll,
@@ -140,6 +141,6 @@ module.exports = {
     update,
     remove,
     findUserLogin,
-    getUserByUsername,
-    findByUsername
+    findByUsername,
+    findByEmail
 }
