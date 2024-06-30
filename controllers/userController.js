@@ -485,17 +485,11 @@ async function emailUser(req, res, email) {
     `;
     htmlContent = htmlContent.replace('LINK_RESETARE', `http://127.0.0.1:5500/Reset_Password_Page/reset_password_page.html?token=${token}`);
     const info=sendEmail(email, `Reset password for user ${user.username}`, 'Please use the button in the email to reset your password.', htmlContent);
-    if(info.succes){
+    
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ message: 'Email sent successfully!' }));
     return;
-    }else{
-        console.log(info.error);
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ message: 'An error occurred' }));
-        return;
     
-    }
 } catch (error) {
     console.error(error);
     res.writeHead(500, { 'Content-Type': 'application/json' });
