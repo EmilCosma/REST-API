@@ -421,6 +421,7 @@ async function getByToken(req,res){
 //@route GET /api/user/send_mail/:email
 async function emailUser(req, res, email) {
     console.log(email);
+    try{
     const user = await User.findByEmail(email);
     if (!user) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -487,6 +488,11 @@ async function emailUser(req, res, email) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ message: 'Email sent successfully!' }));
     return;
+} catch (error) {
+    console.error(error);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ message: 'An error occurred' }));
+}
 }
 
 // resets the password
@@ -542,6 +548,9 @@ async function updatePassword(req,res){
 async function sendEmail(userEmail, subject, text, html) {
     let transporter = nodemailer.createTransport({
         service: 'gmail',
+        hostL: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
         auth: {
             user: 'cosmaemil1414@gmail.com',
             pass: 'uzlc uuby eumw hjls'
