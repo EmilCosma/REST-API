@@ -548,24 +548,28 @@ async function updatePassword(req,res){
 async function sendEmail(userEmail, subject, text, html) {
     let transporter = nodemailer.createTransport({
         service: 'gmail',
-        hostL: 'smtp.gmail.com',
-        port: 587,
-        secure: false,
         auth: {
-            user: 'cosmaemil1414@gmail.com',
-            pass: 'uzlc uuby eumw hjls'
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_PASS,
         }
     });
 
     let mailOptions = {
-        from: 'cosmaemil1414@gmail.com',
+        from: process.env.GMAIL_USER,
         to: userEmail,
         subject: subject,
         text: text,
         html: html
     };
-
-    let info = await transporter.sendMail(mailOptions);
+    try{
+        let info = await transporter.sendMail(mailOptions);
+        return{succes:true}
+    }catch(error){
+        console.log(error)
+        return {succes:false, error: error}
+    };
+    
+    
 
     console.log('Message sent: %s', info.messageId);
 }
